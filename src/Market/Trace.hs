@@ -53,21 +53,21 @@ nftEx2' = BuyParams
 
 test :: IO ()
 test = do
-    let dist = Map.fromList [ (wallet 1, Ada.lovelaceValueOf 10_000_000)
-                            , (wallet 2, Ada.lovelaceValueOf 10_000_000)
-                            , (wallet 3, Ada.lovelaceValueOf 10_000_000
+    let dist = Map.fromList [ (Utility.wallet 1, Ada.lovelaceValueOf 10_000_000)
+                            , (Utility.wallet 2, Ada.lovelaceValueOf 10_000_000)
+                            , (Utility.wallet 3, Ada.lovelaceValueOf 10_000_000
                                       <> Value.singleton (sCs nftEx2) (sTn nftEx2) 1
                                       <> Value.singleton (sCs nftEx1) (sTn nftEx1) 1)
-                            , (wallet 4, Ada.lovelaceValueOf 10_000_000)
-                            , (wallet 5, Ada.lovelaceValueOf 10_000_000)
-                            , (wallet 6, Ada.lovelaceValueOf 10_000_000)
+                            , (Utility.wallet 4, Ada.lovelaceValueOf 10_000_000)
+                            , (Utility.wallet 5, Ada.lovelaceValueOf 10_000_000)
+                            , (Utility.wallet 6, Ada.lovelaceValueOf 10_000_000)
                             ]
         emCfg = EmulatorConfig (Left dist) def def
     runEmulatorTraceIO' def emCfg $ do
-        h1 <- activateContractWallet (wallet 1) endpoints
-        h2 <- activateContractWallet (wallet 2) endpoints
-        h3 <- activateContractWallet (wallet 3) endpoints
-        h4 <- activateContractWallet (wallet 4) endpoints
+        h1 <- activateContractWallet (Utility.wallet 1) endpoints
+        h2 <- activateContractWallet (Utility.wallet 2) endpoints
+        h3 <- activateContractWallet (Utility.wallet 3) endpoints
+        h4 <- activateContractWallet (Utility.wallet 4) endpoints
         void $ Emulator.waitNSlots 1
         callEndpoint @"sendToken" h1 0
         void $ Emulator.waitNSlots 1
